@@ -104,8 +104,8 @@
             // makroEkleToolStripMenuItem
             // 
             this.makroEkleToolStripMenuItem.Name = "makroEkleToolStripMenuItem";
-            this.makroEkleToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.makroEkleToolStripMenuItem.Text = "Add Macro";
+            this.makroEkleToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.makroEkleToolStripMenuItem.Text = "Makro Ekle";
             this.makroEkleToolStripMenuItem.Click += new System.EventHandler(this.makroEkleToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
@@ -121,7 +121,7 @@
             // importToolStripMenuItem1
             // 
             this.importToolStripMenuItem1.Name = "importToolStripMenuItem1";
-            this.importToolStripMenuItem1.Size = new System.Drawing.Size(127, 22);
+            this.importToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.importToolStripMenuItem1.Text = "İçe Aktar";
             this.importToolStripMenuItem1.Click += new System.EventHandler(this.importToolStripMenuItem1_Click);
             // 
@@ -131,7 +131,7 @@
             this.toolStripTextBox1,
             this.exportToolStripMenuItem});
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
-            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(127, 22);
+            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.exportToolStripMenuItem1.Text = "Dışa Aktar";
             // 
             // toolStripTextBox1
@@ -152,7 +152,7 @@
             // yardımToolStripMenuItem
             // 
             this.yardımToolStripMenuItem.Name = "yardımToolStripMenuItem";
-            this.yardımToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.yardımToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.yardımToolStripMenuItem.Text = "Yardım";
             this.yardımToolStripMenuItem.Click += new System.EventHandler(this.yardımToolStripMenuItem_Click);
             // 

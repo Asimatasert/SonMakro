@@ -59,10 +59,6 @@ namespace SonMakro
         {
             char keyChar = char.ToUpper(e.KeyChar);
 
-            if (keyChar == 'ü')
-            {
-                makroEkleToolStripMenuItem.PerformClick();
-            }
 
             if (keyChar == '-')
             {
@@ -107,6 +103,11 @@ namespace SonMakro
                         PerformClickAction(currentPosition, keyChar);
                     }
                 }
+            }
+
+            if (keyChar == '<')
+            {
+                makroEkleToolStripMenuItem.PerformClick();
             }
         }
 
@@ -324,7 +325,7 @@ namespace SonMakro
 
         private void yardımToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("2-3 tane kısa yol var. \n 1.) ü harfine bas sonra farklı bir tuşa bas sonra ekrandan biyere tıkla makro hızlı kayıt edersin. \n 2.) - Tuşu ile Makrolar Aktif/Pasif olur. \n 3.) * Tuşu ile program Yukarıda/Aşşağıda olur.",":)");
+            MessageBox.Show("2-3 tane kısa yol var. \n 1.) ü harfine bas sonra farklı bir tuşa bas sonra ekrandan biyere tıkla makro hızlı kayıt edersin. \n 2.) - Tuşu ile Makrolar Aktif/Pasif olur. \n 3.) * Tuşu ile program Yukarıda/Aşşağıda olur.", ":)");
 
 
         }
