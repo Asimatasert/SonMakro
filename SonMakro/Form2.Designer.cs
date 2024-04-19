@@ -39,7 +39,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(15, 105);
+            this.button4.Location = new System.Drawing.Point(15, 202);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(342, 23);
             this.button4.TabIndex = 15;
@@ -49,9 +49,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(95, 61);
+            this.button2.Location = new System.Drawing.Point(82, 41);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(262, 23);
+            this.button2.Size = new System.Drawing.Size(68, 23);
             this.button2.TabIndex = 13;
             this.button2.Text = "Set";
             this.button2.UseVisualStyleBackColor = true;
@@ -59,9 +59,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(95, 32);
+            this.button1.Location = new System.Drawing.Point(82, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(262, 23);
+            this.button1.Size = new System.Drawing.Size(68, 23);
             this.button1.TabIndex = 12;
             this.button1.Text = "Set";
             this.button1.UseVisualStyleBackColor = true;
@@ -69,7 +69,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(95, 6);
+            this.textBox1.Location = new System.Drawing.Point(95, 164);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(262, 20);
             this.textBox1.TabIndex = 19;
@@ -77,7 +77,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 66);
+            this.label3.Location = new System.Drawing.Point(12, 46);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 10;
@@ -86,7 +86,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 37);
+            this.label2.Location = new System.Drawing.Point(12, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 9;
@@ -95,7 +95,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 167);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 8;
@@ -105,7 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 89);
+            this.ClientSize = new System.Drawing.Size(166, 73);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -120,7 +120,7 @@
             this.Name = "Form2";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Add Macro";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Form2_Load);

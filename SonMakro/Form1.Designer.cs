@@ -48,7 +48,7 @@
             // 
             this.menuStrip1.Location = new System.Drawing.Point(0, 24);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(613, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(305, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -68,7 +68,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(613, 246);
+            this.dataGridView1.Size = new System.Drawing.Size(305, 246);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
@@ -81,7 +81,7 @@
             this.settingsToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(613, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(305, 24);
             this.menuStrip2.TabIndex = 3;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -121,7 +121,7 @@
             // importToolStripMenuItem1
             // 
             this.importToolStripMenuItem1.Name = "importToolStripMenuItem1";
-            this.importToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem1.Size = new System.Drawing.Size(127, 22);
             this.importToolStripMenuItem1.Text = "İçe Aktar";
             this.importToolStripMenuItem1.Click += new System.EventHandler(this.importToolStripMenuItem1_Click);
             // 
@@ -131,7 +131,7 @@
             this.toolStripTextBox1,
             this.exportToolStripMenuItem});
             this.exportToolStripMenuItem1.Name = "exportToolStripMenuItem1";
-            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem1.Size = new System.Drawing.Size(127, 22);
             this.exportToolStripMenuItem1.Text = "Dışa Aktar";
             // 
             // toolStripTextBox1
@@ -152,7 +152,7 @@
             // yardımToolStripMenuItem
             // 
             this.yardımToolStripMenuItem.Name = "yardımToolStripMenuItem";
-            this.yardımToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.yardımToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.yardımToolStripMenuItem.Text = "Yardım";
             this.yardımToolStripMenuItem.Click += new System.EventHandler(this.yardımToolStripMenuItem_Click);
             // 
@@ -160,7 +160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(613, 294);
+            this.ClientSize = new System.Drawing.Size(305, 294);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.menuStrip2);

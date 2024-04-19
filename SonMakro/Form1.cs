@@ -41,13 +41,11 @@ namespace SonMakro
         private void InitializeDataGridView()
         {
             dataTable = new DataTable();
-            dataTable.Columns.Add("Makro Adı", typeof(string));
+            //dataTable.Columns.Add("Makro Adı", typeof(string));
             dataTable.Columns.Add("Makro Tuşu", typeof(string));
             dataTable.Columns.Add("Koordinatlar", typeof(string));
-            dataTable.Columns.Add("Fonksiyon", typeof(string));
-            dataTable.Columns.Add("Ekran Çözünürlüğü", typeof(string));
-
-            // DataGridView'e DataTable'ı bağla
+            //dataTable.Columns.Add("Fonksiyon", typeof(string));
+            //dataTable.Columns.Add("Ekran Çözünürlüğü", typeof(string));
             dataGridView1.DataSource = dataTable;
         }
 
@@ -187,7 +185,8 @@ namespace SonMakro
                     int screenWidth = Screen.PrimaryScreen.Bounds.Width;
                     int screenHeight = Screen.PrimaryScreen.Bounds.Height;
                     string resolution = $"{screenWidth} x {screenHeight}";
-                    dataTable.Rows.Add(form2.MacroName, form2.MacroKey, form2.Coordinate, "-", resolution);
+                    //dataTable.Rows.Add(form2.MacroName, form2.MacroKey, form2.Coordinate, "-", resolution);
+                    dataTable.Rows.Add(form2.MacroKey, form2.Coordinate);
                     this.TopMost = false;
                     //if (macroLastState)
                     //{
@@ -215,11 +214,16 @@ namespace SonMakro
                 {
                     string filePath = openFileDialog.FileName;
                     string jsonData = File.ReadAllText(filePath);
-                    DataTable dataTable = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                    DataTable tempTable = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                    MergeDataTables(dataTable, tempTable);
                     dataGridView1.DataSource = null;
                     dataGridView1.DataSource = dataTable;
                 }
             }
+        }
+        private void MergeDataTables(DataTable mainTable, DataTable newTable)
+        {
+            mainTable.Merge(newTable);
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -276,7 +280,8 @@ namespace SonMakro
                 try
                 {
                     string jsonData = File.ReadAllText(filePath);
-                    DataTable dataTable = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                    DataTable tempTable = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                    MergeDataTables(dataTable, tempTable);
                     dataGridView1.DataSource = null;
                     dataGridView1.DataSource = dataTable;
                 }
