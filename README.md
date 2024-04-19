@@ -4,3 +4,6 @@ Uygulamadaki kısayollar. ü -> Otomatik olarak makro ekleme penceresi açar, ak
 
 (Tire tuşu) -> Makro Aktif/Pasif
 (Yıldız tuşu) -> Üstte/Altta
+
+
+Uygulama ilk kapatıldığında belgelerim'e key.json dosyası kayıt eder dosyayı silmeniz dahilinde makrolarınıza elveda diyebilirsiniz.
