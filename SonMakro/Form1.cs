@@ -11,11 +11,14 @@ using System.Windows.Forms;
 using Gma.System.MouseKeyHook;
 using Newtonsoft.Json;
 using System.IO;
+using System.Threading;
 
 namespace SonMakro
 {
     public partial class Form1 : Form
     {
+        int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+        int screenHeight = Screen.PrimaryScreen.Bounds.Height;
         private IKeyboardMouseEvents m_GlobalHook;
         [DllImport("user32.dll")]
         static extern bool SetCursorPos(int X, int Y);
@@ -33,6 +36,27 @@ namespace SonMakro
             InitializeDataGridView();
             Subscribe();
         }
+        private void SetupFunctionColumn()
+        {
+            DataGridViewComboBoxColumn funcColumn = new DataGridViewComboBoxColumn();
+            funcColumn.HeaderText = "Fonksiyon";
+            funcColumn.Name = "Fonksiyon";
+            funcColumn.DataPropertyName = "Fonksiyon";  // DataTable'daki ilgili sütun adı
+            funcColumn.FlatStyle = FlatStyle.Flat;  // ComboBox stilini ayarla
+
+            // ComboBox'a eklenecek değerler
+            funcColumn.Items.AddRange(new string[] { "Click", "Hover" });
+
+            // Eski Fonksiyon sütununu kaldır (varsayılan olarak oluşturulduysa)
+            if (dataGridView1.Columns["Fonksiyon"] != null)
+            {
+                dataGridView1.Columns.Remove("Fonksiyon");
+            }
+
+            // Yeni ComboBox sütununu ekle
+            dataGridView1.Columns.Add(funcColumn);
+        }
+
         public bool IsKeyValid(string keyString, out Keys key)
         {
             return Enum.TryParse(keyString, out key) && Enum.IsDefined(typeof(Keys), key);
@@ -44,74 +68,152 @@ namespace SonMakro
             //dataTable.Columns.Add("Makro Adı", typeof(string));
             dataTable.Columns.Add("Makro Tuşu", typeof(string));
             dataTable.Columns.Add("Koordinatlar", typeof(string));
-            //dataTable.Columns.Add("Fonksiyon", typeof(string));
+            dataTable.Columns.Add("Fonksiyon", typeof(string));
             //dataTable.Columns.Add("Ekran Çözünürlüğü", typeof(string));
             dataGridView1.DataSource = dataTable;
+            SetupFunctionColumn();
         }
 
         public void Subscribe()
         {
             m_GlobalHook = Hook.GlobalEvents();
             m_GlobalHook.KeyPress += GlobalHookKeyPress;
+            m_GlobalHook.KeyDown += GlobalKeyDown;
+            m_GlobalHook.KeyUp += GlobalKeyUp;
         }
 
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
         {
             char keyChar = char.ToUpper(e.KeyChar);
 
+            if (keyChar == '|')
+            {
+                makroEkleToolStripMenuItem.PerformClick();
+            }
 
-            if (keyChar == '-')
+            if (keyChar == 'Æ')
             {
                 if (macroIsActive)
                 {
+                    toolStripMenuItem2.BackColor = Color.Red;
+                    this.Text = "Son Macro";
+                    int formWidth = this.Width;
+                    int formHeight = this.Height;
+                    this.Location = new Point((screenWidth - formWidth) / 2, (screenHeight - formHeight) / 2);
+                    this.TopMost = false;
+                    this.ControlBox = true;
+                    this.MinimizeBox = true;
                     macroIsActive = false;
                     macroLastState = false;
                     toolStripMenuItem1.BackColor = Color.Red;
+                    this.Size = new Size(321, 600);
                 }
                 else
                 {
+                    toolStripMenuItem2.BackColor = Color.Green;
+                    this.Text = "";
+                    this.TopMost = true;
+                    this.Location = new Point(500, 0);
+                    this.ControlBox = false;
+                    this.MinimizeBox = false;
                     macroIsActive = true;
                     macroLastState = true;
                     toolStripMenuItem1.BackColor = Color.Green;
+                    this.Size = new Size(160, 10);
                 }
             }
+        }
 
-            if (keyChar == '*')
-            {
-                if (this.TopMost)
-                {
-                    this.TopMost = false;
-                    this.Hide();
-                    toolStripMenuItem2.BackColor = Color.Red;
-                }
-                else
-                {
-                    this.TopMost = true;
-                    this.Show();
-                    toolStripMenuItem2.BackColor = Color.Green;
-                }
-            }
+
+        int asdasd = 0;
+        Point oldPozition = Cursor.Position;
+        private void GlobalKeyDown(object sender, KeyEventArgs e)
+        {
+            char keyChar = char.ToUpper((char)e.KeyCode);
 
             if (macroIsActive)
             {
                 foreach (DataRow row in ((DataTable)dataGridView1.DataSource).Rows)
                 {
                     string keyString = row["Makro Tuşu"].ToString();
-                    if (IsKeyValid(keyString, out Keys key) && (key == (Keys)keyChar))
+                    string keyStringa = row["Fonksiyon"].ToString();
+                    if (keyStringa == "Hold")
                     {
-                        Point currentPosition = Cursor.Position;
-                        PerformClickAction(currentPosition, keyChar);
+                        if (IsKeyValid(keyString, out Keys key) && (key == e.KeyCode))
+                        {
+                            Point currentPosition = Cursor.Position;
+                            PerformClickAction(currentPosition, keyChar, true);
+                        }
                     }
                 }
             }
-
-            if (keyChar == '<')
+        }
+        public static class ScreenHelper
+        {
+            public static Point GetScreenCenter()
             {
-                makroEkleToolStripMenuItem.PerformClick();
+                // Ana ekranı al
+                var primaryScreen = Screen.PrimaryScreen;
+
+                // Ekranın genişlik ve yükseklik değerlerini al
+                int width = primaryScreen.Bounds.Width;
+                int height = primaryScreen.Bounds.Height;
+
+                // Ekranın orta noktasını hesapla
+                int centerX = width / 2;
+                int centerY = height / 2;
+
+                // Orta noktayı Point olarak döndür
+                return new Point(centerX, centerY);
             }
         }
 
-        private void PerformClickAction(Point d, char mykey)
+        private void GlobalKeyUp(object sender, KeyEventArgs e)
+        {
+            char keyChar = char.ToUpper((char)e.KeyCode);
+
+            if (macroIsActive)
+            {
+                foreach (DataRow row in ((DataTable)dataGridView1.DataSource).Rows)
+                {
+                    string keyString = row["Makro Tuşu"].ToString();
+                    string keyStringa = row["Fonksiyon"].ToString();
+                    if (IsKeyValid(keyString, out Keys key) && (key == e.KeyCode))
+                    {
+                        Point currentPosition = Cursor.Position;
+                        if (oldPozition != currentPosition)
+                        {
+                            oldPozition = Cursor.Position;
+                        }
+                        if (keyStringa == "Hold")
+                        {
+                            Point center = ScreenHelper.GetScreenCenter();
+                            PerformClickAction(center, keyChar, false);
+                        }
+                        if (keyStringa == "Click")
+                        {
+                            PerformClickAction(oldPozition, keyChar, true);
+                            PerformClickAction(oldPozition, keyChar, false);
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        public static void MouseLeftButtonUp(int x, int y)
+        {
+            SetCursorPos(x, y);  // Fare imlecini istenilen konuma getir (opsiyonel)
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);  // Sol mouse tuşunu serbest bırak
+        }
+        public static void MouseLeftButtonDown(int x, int y)
+        {
+            SetCursorPos(x, y);  // Fare imlecini istenilen konuma getir
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);  // Sol mouse tuşunu basılı tut
+        }
+
+        private void PerformClickAction(Point d, char mykey, Boolean z)
         {
             if (macroIsActive)
             {
@@ -124,8 +226,15 @@ namespace SonMakro
                         int x = int.Parse(coords[0]);
                         int y = int.Parse(coords[1]);
                         SetCursorPos(x, y);
-                        mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, x, y, 0, 0);
-                        SetCursorPos(d.X, d.Y);
+                        if (z)
+                        {
+                            MouseLeftButtonDown(x, y);
+                        }
+                        else
+                        {
+                            MouseLeftButtonUp(x, y);
+                            SetCursorPos(d.X, d.Y);
+                        }
                     }
                 }
             }
@@ -146,15 +255,31 @@ namespace SonMakro
         {
             if (macroIsActive)
             {
+                toolStripMenuItem2.BackColor = Color.Red;
+                this.Text = "Son Macro";
+                int formWidth = this.Width;
+                int formHeight = this.Height;
+                this.Location = new Point((screenWidth - formWidth) / 2, (screenHeight - formHeight) / 2);
+                this.TopMost = false;
+                this.ControlBox = true;
+                this.MinimizeBox = true;
                 macroIsActive = false;
                 macroLastState = false;
                 toolStripMenuItem1.BackColor = Color.Red;
+                this.Size = new Size(321, 600);
             }
             else
             {
+                toolStripMenuItem2.BackColor = Color.Green;
+                this.Text = "";
+                this.TopMost = true;
+                this.Location = new Point(500, 0);
+                this.ControlBox = false;
+                this.MinimizeBox = false;
                 macroIsActive = true;
                 macroLastState = true;
                 toolStripMenuItem1.BackColor = Color.Green;
+                this.Size = new Size(160, 10);
             }
         }
 
@@ -187,7 +312,7 @@ namespace SonMakro
                     int screenHeight = Screen.PrimaryScreen.Bounds.Height;
                     string resolution = $"{screenWidth} x {screenHeight}";
                     //dataTable.Rows.Add(form2.MacroName, form2.MacroKey, form2.Coordinate, "-", resolution);
-                    dataTable.Rows.Add(form2.MacroKey, form2.Coordinate);
+                    dataTable.Rows.Add(form2.MacroKey, form2.Coordinate, "Click");
                     this.TopMost = false;
                     //if (macroLastState)
                     //{
